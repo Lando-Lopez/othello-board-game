@@ -10,22 +10,26 @@ public:
     BoardGame();
     ~BoardGame();
 
-private:
-    //*** Utility atributes
+    //*** Utility attributes
     struct Position{
         int row;
         int column;
+        char squareType;
     };
 
+    //*** Save Positions of each piece.
     std::vector<Position> whitePiecePositions;
     std::vector<Position> blackPiecePositions;
 
     //*** Utility methods
-    char classifySquare(const Position& pos) const;
-    std::vector<Position> identifyPossibleMovements(const std::vector<Position>& piecePositions, char squareType) const;
+    std::vector<Position> identifyPossibleMovements(const std::vector<Position>& piecePositions) const; //Possibles movements of player in turn
+    void setPiece(Position selectedSquare, char colorInTurn); //Update Position of captured pieces and sets a new piece
+    Position getCoordsSelectedSquare(); //Transform mouse coordinates into [row][column] format
 
-    //*** Operative methods
-    void setPiece(const std::vector<Position>& validMovements, char colorInTurn);
+private:
+    //*** Auxiliary methods
+    char classifySquare(const Position& pos) const; //Only call inside of setPiece, when we need to know the squareType of the newPiece
+
 };
 
 
